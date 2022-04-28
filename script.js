@@ -27,22 +27,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function getSkuNumber(cardElement) {
-  const cardChildren = cardElement.childNodes;
-  let skuProductNumber = '';
-
-  cardChildren.forEach((element) => {
-    if (element.classList.contains('item__sku')) {
-      skuProductNumber = element.innerText;
-    }
-  });
-
-  return skuProductNumber;
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
 }
 
 async function addToCart(event) {
   const cardElement = event.target.parentElement;
-  const skuProductNumber = getSkuNumber(cardElement);
+  const skuProductNumber = getSkuFromProductItem(cardElement);
   const { id: sku, title: name, price: salePrice } = await fetchItem(skuProductNumber);
   const cartItemElement = createCartItemElement({ sku, name, salePrice });
   cartItems.appendChild(cartItemElement);
@@ -60,10 +51,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(buttonAddToCart);
 
   return section;
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
 }
 
 async function showItems() {
