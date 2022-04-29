@@ -16,6 +16,7 @@ function createCustomElement(element, className, innerText) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  saveCartItems(cartItems.innerHTML);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -36,6 +37,7 @@ async function addToCart(event) {
   const { id: sku, title: name, price: salePrice } = await fetchItem(skuProductNumber);
   const cartItemElement = createCartItemElement({ sku, name, salePrice });
   cartItems.appendChild(cartItemElement);
+  saveCartItems(cartItems.innerHTML);
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -62,6 +64,14 @@ async function showItems() {
   });
 }
 
+function loadProductsAtCart() {
+  cartItems.innerHTML = getSavedCartItems();
+  cartItems.childNodes.forEach((item) => {
+    item.addEventListener('click', cartItemClickListener);
+  });
+}
+
 window.onload = () => {
+  loadProductsAtCart();
   showItems();
 };
