@@ -5,8 +5,7 @@ localStorageSimulator('getItem');
 
 describe('4 - Teste a função getSavedCartItems', () => {
   beforeEach(() => {
-    argumentoForGet = 'cartItems';
-    getSavedCartItems(argumentoForGet);
+    getSavedCartItems();
   });
 
   it('Verifica se chama o método correto', () => {
@@ -14,6 +13,6 @@ describe('4 - Teste a função getSavedCartItems', () => {
   });
 
   it('Verifica se chama o método com o argumento correto', () => {
-    expect(localStorage.getItem).toHaveBeenCalledWith(argumentoForGet);
+    expect(localStorage.getItem).toHaveBeenCalledWith('cartItems');
   });
 });
