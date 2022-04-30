@@ -1,5 +1,6 @@
 const cartItems = document.querySelector('.cart__items');
 const totalPriceContainer = document.querySelector('.total-price');
+const clearCartButton = document.querySelector('.empty-cart');
 
 function calculateCartPrice() {
   const cartItemsNodes = cartItems.childNodes;
@@ -10,6 +11,12 @@ function calculateCartPrice() {
   });
   totalPriceContainer.innerText = total;
 }
+
+clearCartButton.addEventListener('click', () => {
+  cartItems.innerHTML = null;
+  saveCartItems(cartItems.innerHTML);
+  calculateCartPrice();
+});
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
